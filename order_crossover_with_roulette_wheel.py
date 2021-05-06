@@ -1,6 +1,7 @@
 import numpy as np
 import csv
 import random
+import numpy as np
 
 # 선언 섹션
 is_training = 1
@@ -77,7 +78,7 @@ def calculate_fitness(fitness, population, cities, total_min_fit, cur_min_fit) :
     print(total_min_fit)
 
 def nomalize_fitness(fitness) :
-    fit_sum = 0;
+    fit_sum = 0
     for idx in range (num_of_population) :
        fit_sum  += fitness[idx]
     for idx in range (num_of_population) :
@@ -91,7 +92,7 @@ def pick_random_population(population, fitness) :
     while (random_value > 0) :
         random_value -= fitness[now_idx]
         now_idx = now_idx + 1
-    now_idx = now_idx - 1;
+    now_idx = now_idx - 1
     return population[now_idx]
     
 
