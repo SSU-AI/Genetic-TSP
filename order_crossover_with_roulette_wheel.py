@@ -11,6 +11,7 @@ cur_min_idx = -1
 num_of_cities = 1000 # according to data, num(cities) is 1000
 num_of_population = 500
 num_of_training = 100
+num_of_cluster = 10
 mutation_rate = 0.01
 cities = []
 sol = []
@@ -131,6 +132,17 @@ def propagate_to_next_generation(population, fitness, cities) :
     return  new_population.copy()
     
 
+def tree_search(visited_list, centroid,now_depth):
+    if(now_depth == num_of_cluster) :
+        return calculate_total_distance(visited_list, centroid)
+    tmp_min = INF
+    for i in range(num_of_cluster) :
+        if i not in visited_list :
+            visited_list[now_depth] = i
+            tmp_min = min(tmp_min, tree_search(visited_list, centroid, now_depth+1))
+            visited_list[now_depth] = 0
+    return tmp_min
+
 
 # 실행 섹션
 open_cities(cities)
@@ -138,11 +150,15 @@ if(is_training == 0):
     open_soution(sol[0])
     print('final cost : ' + str(calculate_total_distance(sol, cities))) 
 else :
-    init_random_candidates(population)
-    for i in range(num_of_training) :
-        calculate_fitness(fitness, population, cities, total_min_fit, cur_min_fit)
-        nomalize_fitness(fitness)
-        print(calculate_total_distance(population[cur_min_idx], cities))
-        population = propagate_to_next_generation(population, fitness, cities).copy()
-    print(total_min_fit)
+    visited_list = [-1] * num_of_cluster
+    print(tree_search(visited_list, cities, 0))
+# =============================================================================
+#     init_random_candidates(population)
+#     for i in range(num_of_training) :
+#         calculate_fitness(fitness, population, cities, total_min_fit, cur_min_fit)
+#         nomalize_fitness(fitness)
+#         print(calculate_total_distance(population[cur_min_idx], cities))
+#         population = propagate_to_next_generation(population, fitness, cities).copy()
+#     print(total_min_fit)
+# =============================================================================
     
