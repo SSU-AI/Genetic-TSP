@@ -4,11 +4,11 @@ import random
 class Selection:     
     @staticmethod
     def tournament(env):
-        t=0.7
-        k=8
-        tournament = np.random.randint(0, env.num_of_population, 2**k)
+        t=env.tournament_t
+        n= env.tournament_n
+        tournament = np.random.randint(0, env.num_of_population, 2**n)
 
-        for i in reversed(range(1, r+1)):
+        for i in reversed(range(1, n+1)):
             for j in range(0, 2**(i-1)):
                 random_value = random.random()
                 # 적합도 좋은 거 선택
@@ -25,12 +25,12 @@ class Selection:
                         tournament[j] = tournament[2*j+1]
 
         parent = tournament[0]
-        return parent
+        return env.population[parent]
 
     @staticmethod
     def ranking(env):
-        N=14
-        highest_chrom_idx = env.get_highest_chroms(N, env)
+        N=env.ranking_n
+        highest_chrom_idx = Selection.get_highest_chroms(N, env)
         
         p = random.random()
         sum = 0
@@ -45,7 +45,7 @@ class Selection:
                 idx = i
                 break
                 
-        return highest_chrom_idx[idx]
+        return env.population[highest_chrom_idx[idx]]
 
     @staticmethod
     def get_highest_chroms(n, env):

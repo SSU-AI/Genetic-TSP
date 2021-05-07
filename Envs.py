@@ -7,11 +7,15 @@ class Env :
     total_min_fit = INF
     cur_min_fit = INF
     cur_min_idx = -1
-    num_of_cities = 1000 # according to data, num(cities) is 1000
+    num_of_cities = 1000 # according to cluster's members
     num_of_population = 500
     num_of_training = 100
     num_of_cluster = 10
     mutation_rate = 0.01
+    ranking_n = 14
+    tournament_t = 0.7 
+    tournament_n = 8 
+    elite = []
     cities = []
     sol = []
     fitness = []
@@ -19,11 +23,16 @@ class Env :
     elite = []      # 다음 세대로 전달할 엘리트 유전자 리스트
     elite_fitness = 0       # 다음 세대로 전달할 엘리트 유전자의 적합도
 
-    def open_cities(self) :
-        with open('TSP.csv', mode='r', newline='') as tsp:
-            reader = csv.reader(tsp)
-            for row in reader :
-                self.cities.append(row)
+    def __init__(self, chromosome):
+        if chromosome :
+            self.cities = chromosome
+            self.num_of_cities = len(chromosome)
+            self.num_of_population = int(self.num_of_cities/2)
+        else :
+            with open('TSP.csv', mode='r', newline='') as tsp:
+                reader = csv.reader(tsp)
+                for row in reader :
+                    self.cities.append(row)
 
     def open_soution(self) :
         with open('example_solution.csv', mode='r', newline='') as solution :
@@ -36,15 +45,15 @@ class Env :
             self.sol= front + back
             self.sol.append(int(0))
 
-    def init_random_candidates(self) : 
-        order = []
-        for i in range (self.num_of_cities) :
-            order.insert(i, i)
-        for i in range (self.num_of_population) :
-            tmp_order = []
-            tmp_order = order.copy()
-            random.shuffle(tmp_order)
-            (self.population).insert(i, tmp_order)
+    def init_candidates(self) : 
+            order = []
+            for i in range (self.num_of_cities) :
+                order.insert(i, i)
+            for i in range (self.num_of_population) :
+                tmp_order = []
+                tmp_order = order.copy()
+                random.shuffle(tmp_order)
+                (self.population).insert(i, tmp_order)
 
     def propagate_to_next_generation(self, selection_method, cross_over_method, mutation_method, env) :
         new_population = []
