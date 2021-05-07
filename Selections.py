@@ -75,7 +75,7 @@ class Selection:
         env.elite = env.population[elite_ind]
 
         # population 중에서 random으로 1개 리턴
-        return np.random.sample(env.population, 1)
+        return np.random.choice(env.population, 1)
 
     @staticmethod
     def roulette_wheel(env):
