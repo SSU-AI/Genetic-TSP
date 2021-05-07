@@ -21,3 +21,14 @@ my_env.open_cities()
 #     print(total_min_fit)
 # =============================================================================
     
+"""
+Tree 호출 부분
+
+all_cluster, centroids = KClustering(10)
+
+#centroids shape= [centroidsID][x좌표, y좌표]
+
+# i 번째 cluster 에 속해 있는 cities들
+# 1D vector [chromosome]
+chromosome = all_cluster[i]
+"""
