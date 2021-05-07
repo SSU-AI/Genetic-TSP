@@ -35,3 +35,16 @@ all_cluster, centroids = KClustering(10)
 # i 번째 cluster 에 속해 있는 cities들
 # 1D vector [chromosome]
 chromosome = all_cluster[i]
+
+def tree_search(visited_list, centroid,now_depth):
+    if(now_depth == num_of_cluster) :
+        return calculate_total_distance(visited_list, centroid)
+    tmp_min = INF
+    for i in range(num_of_cluster) :
+        if i not in visited_list :
+            visited_list[now_depth] = i
+            tmp_min = min(tmp_min, tree_search(visited_list, centroid, now_depth+1))
+            visited_list[now_depth] = 0
+    return tmp_min
+
+
