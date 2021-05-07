@@ -57,16 +57,8 @@ class Selection:
 
     @staticmethod
     def elite_include(env):
-        fitness = []
+        fitness = env.fitness.copy()
 
-        imp.open_cities()
-        ## 적합도 함수 물어보기*-----------------------------------------------
-        ## 만약 사전에 구한 적합도들 사용 시
-        #      1. 모든 fitness => self.fitness
-        #      2. fitness구하는 코드 지우기(아래)
-        for candidate in env.population:
-            fitness.append(60000 - imp.calculate_distance(candidate, imp.cities))
-        #----------------------------------------------------------------------
         # elite 구하기
         elite_ind = fitness.index(max(fitness))
         elite = env.population[elite_ind]
