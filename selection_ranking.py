@@ -26,10 +26,10 @@ def get_parent_by_ranking(chrom_list):
         sum += sub/100
 
         if sum >= p:
-            parent = i
+            idx = i
             break
             
-    return parent
+    return highest_chrom_idx[idx]
     
 def get_fitness_list(ch_list):
     fit_list = []
