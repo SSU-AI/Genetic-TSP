@@ -2,7 +2,7 @@ import numpy as np
 
 class Mating:
     @staticmethod
-    def cycle(self, parent1, parent2):
+    def cycle(parent1, parent2):
         # 처음에 자식의 값들을 모두 -1로 초기화
     child = [-1 for i in range(len(parent1))]
     ind = 0
@@ -24,7 +24,7 @@ class Mating:
     return child
 
     @staticmethod
-    def pmx(self, parent1, parent2):
+    def pmx(parent1, parent2):
         def get_child_by_pmx(chrom1, chrom2):
     point1 = int(len(chrom1) / 3)
     point2 = point1 * 2
@@ -54,7 +54,7 @@ class Mating:
 
 
     @staticmethod
-    def corssover_order(self, list_A, list_B) : 
+    def corssover_order(list_A, list_B) : 
     start_idx = random.randint(0, num_of_cities-1)
     end_idx = random.randint(start_idx+1, num_of_cities)
     new_list = list_A[start_idx:end_idx].copy()
