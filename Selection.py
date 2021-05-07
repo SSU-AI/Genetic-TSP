@@ -7,7 +7,7 @@ class Selection:
         self.population = population
         self.num_of_population = num_of_population
         
-
+    @staticmethod
     def tournament(self, t=0.7, k=8):
         tournament = np.random.randint(0, self.num_of_population, 2**k)
 
@@ -30,6 +30,7 @@ class Selection:
         parent = tournament[0]
         return parent
 
+    @staticmethod
     def ranking(self, N=14):
         highest_chrom_idx = self.get_highest_chroms(N)
         
@@ -48,6 +49,7 @@ class Selection:
                 
         return highest_chrom_idx[idx]
 
+    @staticmethod
     def get_highest_chroms(self, n):
         fit_list_sorted = sorted(self.fitness)
         highest_ch_idx = []
@@ -58,7 +60,7 @@ class Selection:
         
         return highest_ch_idx
 
-
+    @staticmethod
     def elite_include(self):
         fitness = []
 
@@ -84,7 +86,8 @@ class Selection:
         p2 = self.population[p2_ind]
 
         return [elite, p2]
-
+        
+    @staticmethod
     def roulette_wheel(self):
         now_idx = 0
         random_value = random.random()
