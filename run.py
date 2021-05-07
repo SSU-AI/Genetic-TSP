@@ -16,8 +16,7 @@ all_cluster, centroids = kcluster.kclustering(k)
 for i in range(0, k):
     # i번째 cluster
     chromosome = all_cluster[i]
-    my_env = Env()
-    my_env.open_cities()
+    my_env = Env(all_cluster[i])
     my_env.init_candidates()
     cal.calculate_fitness(my_env)
     cal.normalize_fitness(my_env)

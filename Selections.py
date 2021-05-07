@@ -61,7 +61,7 @@ class Selection:
     @staticmethod
     def elite_include(env):
         # elite 구하기
-        elite_ind = fitness.index(max(fitness))
+        elite_ind = env.fitness.index(max(fitness))
         elite = env.population[elite_ind]
 
         # 새로운 fitness 리스트에서 elite의 fitness 제거

@@ -7,7 +7,7 @@ import pandas as pd
 class KClustering:
 
     @staticmethod
-    def kclustering(self, k):
+    def kclustering(k):
         df = pd.read_csv('TSP.csv', header=None, names=['x', 'y'])
 
         models = KMeans(n_clusters = k)
@@ -18,9 +18,9 @@ class KClustering:
 
         df["cluster"] = np.array(labels)
 
-        plt.scatter(df.x, df.y, c=labels, alpha=0.5)
-        plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', color='b')
-        plt.show()
+        # plt.scatter(df.x, df.y, c=labels, alpha=0.5)
+        # plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', color='b')
+        # plt.show()
 
         cities_of_cluster = []
         centroids_of_cluster = centroids
