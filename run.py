@@ -4,15 +4,28 @@ from Calculations import Calculation as cal
 from Crossovers import Crossover
 from Selections import Selection
 from Mutations import Mutation
+from KCluster import KClustering as cluster
 
-my_env = Env()
-my_env.open_cities()
-my_env.init_random_candidates()
-cal.calculate_fitness(my_env)
-cal.normalize_fitness(my_env)
-my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.pmx,  Mutation.inversion, my_env)
-print('final cost : ' + str(cal.calculate_total_distance(my_env.population[my_env.cur_min_idx], my_env.cities))) 
 
+k=10
+output_chormosome = []
+
+kcluster = cluster()
+all_cluster, centroids = kcluster.kclustering(k)
+
+for i in range(0, k):
+    # i번째 cluster
+    chromosome = all_cluster[i]
+    my_env = Env()
+    my_env.open_cities()
+    my_env.init_candidates()
+    cal.calculate_fitness(my_env)
+    cal.normalize_fitness(my_env)
+    my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order,  Mutation.swap, my_env)
+    print(my_env.fitness)
+
+    cal.calculate_fitness(my_env)   # 마지막 연산 후, population 갱신
+    output_chromosome.append(my_env.population[my_env.cur_min_idx])
 
 # if(is_training == 0):
 #     open_soution(sol[0])
@@ -27,13 +40,17 @@ print('final cost : ' + str(cal.calculate_total_distance(my_env.population[my_en
 #         population = propagate_to_next_generation(population, fitness, cities).copy()
 #     print(total_min_fit)
 # =============================================================================
-    
+
+
 """
 Tree 호출 부분
 
 all_cluster, centroids = KClustering(10)
 
 #centroids shape= [centroidsID][x좌표, y좌표]
+
+ex) tree 순서 0, 1, 2, 3, 4, 5, 6, 7, 8 ,9 이면
+    my_env.sol = output_choromosome[0] + output_choromosome[1] + ...
 
 # i 번째 cluster 에 속해 있는 cities들
 # 1D vector [chromosome]

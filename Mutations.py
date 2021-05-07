@@ -2,6 +2,13 @@ import numpy as np
 
 class Mutation :
     @staticmethod
+    def mutate_or_not():
+        if np.random.rand() <= 0.01:
+            return True
+        else:
+            return False
+
+    @staticmethod
     def inversion(offspring):
         ind1, ind2 = sorted(np.random.choice([i for i in range(len(offspring))], 2, replace=False))
         end = [] if ind2==len(offspring)-1 else offspring[ind2+1:]

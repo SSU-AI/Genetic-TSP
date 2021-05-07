@@ -2,13 +2,16 @@ import csv
 import random
 
 class Env :
+    def __init__(self, chromosome):
+        self.chromosome = chromosome
+
     is_training = 1
     INF = 10000000000
     total_min_fit = INF
     cur_min_fit = INF
     cur_min_idx = -1
-    num_of_cities = 1000 # according to data, num(cities) is 1000
-    num_of_population = 500
+    num_of_cities = len(self.chromosome) # according to cluster's members
+    num_of_population = int(num_of_cities/2)
     num_of_training = 100
     num_of_cluster = 10
     mutation_rate = 0.01
@@ -38,15 +41,16 @@ class Env :
             self.sol= front + back
             self.sol.append(int(0))
 
-    def init_random_candidates(self) : 
-        order = []
-        for i in range (self.num_of_cities) :
-            order.insert(i, i)
-        for i in range (self.num_of_population) :
-            tmp_order = []
-            tmp_order = order.copy()
-            random.shuffle(tmp_order)
-            (self.population).insert(i, tmp_order)
+    def init_candidates(self) : 
+        self.population = self.chromosome
+            # order = []
+            # for i in range (self.num_of_cities) :
+            #     order.insert(i, i)
+            # for i in range (self.num_of_population) :
+            #     tmp_order = []
+            #     tmp_order = order.copy()
+            #     random.shuffle(tmp_order)
+            #     (self.population).insert(i, tmp_order)
 
     def propagate_to_next_generation(self, selection_method, cross_over_method, mutation_method, env) :
         new_population = []
