@@ -10,8 +10,8 @@ my_env.open_cities()
 my_env.init_random_candidates()
 cal.calculate_fitness(my_env)
 cal.normalize_fitness(my_env)
-my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order,  Mutation.swap, my_env)
-print(my_env.fitness)
+my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.pmx,  Mutation.inversion, my_env)
+print('final cost : ' + str(cal.calculate_total_distance(my_env.population[my_env.cur_min_idx], my_env.cities))) 
 
 
 # if(is_training == 0):

@@ -4,11 +4,11 @@ import random
 class Selection:     
     @staticmethod
     def tournament(env):
-        t=0.7
-        k=8
-        tournament = np.random.randint(0, env.num_of_population, 2**k)
+        t=env.tournament_t
+        n= env.tournament_n
+        tournament = np.random.randint(0, env.num_of_population, 2**n)
 
-        for i in reversed(range(1, r+1)):
+        for i in reversed(range(1, n+1)):
             for j in range(0, 2**(i-1)):
                 random_value = random.random()
                 # 적합도 좋은 거 선택
@@ -25,12 +25,12 @@ class Selection:
                         tournament[j] = tournament[2*j+1]
 
         parent = tournament[0]
-        return parent
+        return env.population[parent]
 
     @staticmethod
     def ranking(env):
-        N=14
-        highest_chrom_idx = env.get_highest_chroms(N, env)
+        N=env.ranking_n
+        highest_chrom_idx = Selection.get_highest_chroms(N, env)
         
         p = random.random()
         sum = 0
@@ -45,7 +45,7 @@ class Selection:
                 idx = i
                 break
                 
-        return highest_chrom_idx[idx]
+        return env.population[highest_chrom_idx[idx]]
 
     @staticmethod
     def get_highest_chroms(n, env):
@@ -60,18 +60,16 @@ class Selection:
 
     @staticmethod
     def elite_include(env):
-        fitness = env.fitness.copy()
-
         # elite 구하기
         elite_ind = fitness.index(max(fitness))
         elite = env.population[elite_ind]
 
         # 새로운 fitness 리스트에서 elite의 fitness 제거
-        new_fitness = fitness.copy()
+        new_fitness = env.fitness.copy()
         del new_fitness[elite_ind]
 
         # p2의 index 구하기
-        p2_ind = fitness.index(max(new_fitness))    # 주의! new_fitness에는 elite의 fitness가 없기 때문에,
+        p2_ind = env.fitness.index(max(new_fitness))    # 주의! new_fitness에는 elite의 fitness가 없기 때문에,
                                                     # 2번째로 큰 fitness값을 new_fitness에서 찾고, 그 값의 인덱스는 fitness에서 찾아야 한다
         p2 = env.population[p2_ind]
 

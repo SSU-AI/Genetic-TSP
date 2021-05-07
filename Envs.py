@@ -12,6 +12,10 @@ class Env :
     num_of_training = 100
     num_of_cluster = 10
     mutation_rate = 0.01
+    ranking_n = 14
+    tournament_t = 0.7 
+    tournament_n = 8 
+    elite = []
     cities = []
     sol = []
     fitness = []

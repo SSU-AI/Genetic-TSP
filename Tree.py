@@ -40,5 +40,3 @@ class Tree :
                 tmp_min = min(tmp_min, tree_search(visited_list, centroid, now_depth+1))
                 visited_list[now_depth] = 0
         return tmp_min
-
-
