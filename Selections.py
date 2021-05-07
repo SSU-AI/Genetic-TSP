@@ -60,22 +60,22 @@ class Selection:
 
     @staticmethod
     def elite_include(env):
-        fitness = env.fitness.copy()
 
-        # elite 구하기
-        elite_ind = fitness.index(max(fitness))
-        elite = env.population[elite_ind]
+        # 이전 세대로부터 전달받을 값이 있을 때
+        if env.elite_fitness!=0:
+            env.population.append(env.elite)
+            env.fitness.append(env.elite_fitness)
 
-        # 새로운 fitness 리스트에서 elite의 fitness 제거
-        new_fitness = fitness.copy()
-        del new_fitness[elite_ind]
+        ## elite, elite_fitness 구하기
+        # 최대 적합도의 값
+        env.elite_fitness = max(env.fitness)
+        # 최대 적합도를 갖는 유전자의 index
+        elite_ind = env.fitness.index(env.elite_fitness)
+        # 최대 적합도를 갖는 유전자 리스트
+        env.elite = env.population[elite_ind]
 
-        # p2의 index 구하기
-        p2_ind = fitness.index(max(new_fitness))    # 주의! new_fitness에는 elite의 fitness가 없기 때문에,
-                                                    # 2번째로 큰 fitness값을 new_fitness에서 찾고, 그 값의 인덱스는 fitness에서 찾아야 한다
-        p2 = env.population[p2_ind]
-
-        return [elite, p2]
+        # population 중에서 random으로 1개 리턴
+        return np.random.sample(env.population, 1)
 
     @staticmethod
     def roulette_wheel(env):

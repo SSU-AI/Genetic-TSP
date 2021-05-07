@@ -16,6 +16,8 @@ class Env :
     sol = []
     fitness = []
     population = []
+    elite = []      # 다음 세대로 전달할 엘리트 유전자 리스트
+    elite_fitness = 0       # 다음 세대로 전달할 엘리트 유전자의 적합도
 
     def open_cities(self) :
         with open('TSP.csv', mode='r', newline='') as tsp:
