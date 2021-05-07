@@ -54,15 +54,15 @@ class Mating:
 
 
     @staticmethod
-    def corssover_order(list_A, list_B) : 
+    def corssover_order(parent1, parent2) : 
     start_idx = random.randint(0, num_of_cities-1)
     end_idx = random.randint(start_idx+1, num_of_cities)
-    new_list = list_A[start_idx:end_idx].copy()
+    new_list = parent1[start_idx:end_idx].copy()
     tmp_set = set()
     for i in range(len(new_list)) :
         tmp_set.add(new_list[i])
-    for i in range(len(list_B)) :
-        if list_B[i] not in tmp_set :
-            tmp_set.add(list_B[i])
-            new_list.append(list_B[i])
+    for i in range(len(parent2)) :
+        if parent2[i] not in tmp_set :
+            tmp_set.add(parent2[i])
+            new_list.append(parent2[i])
     return new_list
