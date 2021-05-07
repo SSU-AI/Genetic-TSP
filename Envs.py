@@ -44,15 +44,14 @@ class Env :
             random.shuffle(tmp_order)
             (self.population).insert(i, tmp_order)
 
-    def propagate_to_next_generation(self, selection_method, cross_over_method, mutation_method) :
+    def propagate_to_next_generation(self, selection_method, cross_over_method, mutation_method, env) :
         new_population = []
-        for idx in range (num_of_population):
+        for idx in range (env.num_of_population):
 
-            list_A = pick_random_population(self.population, self.fitness).copy()
-            list_B = pick_random_population(self.population, self.fitness).copy()
-
+            list_A = selection_method(env).copy()
+            list_B = selection_method(env).copy()
             new_list = cross_over_method(list_A, list_B).copy()
-            mutation_method(new_list, mutation_rate)
+            mutation_method(new_list)
             new_population.append(new_list)
         self.population = new_population.copy()
     

@@ -3,7 +3,9 @@ import random
 
 class Selection:     
     @staticmethod
-    def tournament(t=0.7, k=8, env):
+    def tournament(env):
+        t=0.7
+        k=8
         tournament = np.random.randint(0, env.num_of_population, 2**k)
 
         for i in reversed(range(1, r+1)):
@@ -26,7 +28,8 @@ class Selection:
         return parent
 
     @staticmethod
-    def ranking(N=14, env):
+    def ranking(env):
+        N=14
         highest_chrom_idx = env.get_highest_chroms(N, env)
         
         p = random.random()
