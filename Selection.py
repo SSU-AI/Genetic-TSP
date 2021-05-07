@@ -26,7 +26,7 @@ class Selection:
         return parent
 
     @staticmethod
-    def ranking(N=14):
+    def ranking(N=14, env):
         highest_chrom_idx = env.get_highest_chroms(N, env)
         
         p = random.random()
