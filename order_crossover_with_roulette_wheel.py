@@ -1,89 +1,7 @@
 import numpy as np
 import csv
 import random
-import numpy as np
 
-# 선언 섹션
-is_training = 1
-INF = 10000000000
-total_min_fit = INF 
-cur_min_fit = INF
-cur_min_idx = -1
-num_of_cities = 1000 # according to data, num(cities) is 1000
-num_of_population = 500
-num_of_training = 100
-num_of_cluster = 10
-mutation_rate = 0.01
-cities = []
-sol = []
-fitness = []
-population = []
-
-
-# 정의 섹션
-# 1. init
-
-def open_cities(cities) :
-    with open('TSP.csv', mode='r', newline='') as tsp:
-        reader = csv.reader(tsp)
-        for row in reader :
-            cities.append(row)
-
-def open_soution(sol) :
-    with open('example_solution.csv', mode='r', newline='') as solution :
-        reader = csv.reader(solution)
-        for row in reader :
-            sol.append(int(row[0]))
-        idx = sol.index(0)
-        front = sol[idx:]
-        back = sol[0:idx]
-        sol= front + back
-        sol.append(int(0))
-
-def init_random_candidates(population) : 
-    order = []
-    for i in range (num_of_cities) :
-        order.insert(i, i)
-    for i in range (num_of_population) :
-        tmp_order = []
-        tmp_order = order.copy()
-        random.shuffle(tmp_order)
-        population.insert(i, tmp_order)
-
-# 2. calculation
-
-def calculate_distance(point_1,point_2):
-    dist = np.linalg.norm(np.array(point_1) - np.array(point_2))
-    return dist
-
-def calculate_total_distance(sol, cities) : 
-    total_cost = 0;    
-    for idx in range(len(sol)-1) :
-        pos_city_1 = [float(cities[sol[idx]][0]), float(cities[sol[idx]][1])]
-        pos_city_2 = [float(cities[sol[idx+1]][0]), float(cities[sol[idx+1]][1])]         
-        dist = calculate_distance(pos_city_1, pos_city_2)
-        total_cost += dist
-    return total_cost
-
-def calculate_fitness(fitness, population, cities, total_min_fit, cur_min_fit) :
-    cur_min_fit = INF
-    for idx in range (num_of_population):
-        fit_val = 1 / (calculate_total_distance(population[idx], cities) + 1)
-        fitness.insert(idx, fit_val)
-        if(fitness[idx] < cur_min_fit) :
-            cur_min_fit = fitness[idx]
-    if(cur_min_fit < total_min_fit) :
-        total_min_fit = cur_min_fit
-        cur_min_idx = idx
-    print(total_min_fit)
-
-def nomalize_fitness(fitness) :
-    fit_sum = 0
-    for idx in range (num_of_population) :
-       fit_sum  += fitness[idx]
-    for idx in range (num_of_population) :
-       fitness[idx] = fitness[idx] / fit_sum 
-     
 # 3. propagation
 
 def pick_random_population(population, fitness) :
@@ -145,21 +63,3 @@ def tree_search(visited_list, centroid,now_depth):
     return tmp_min
 
 
-# 실행 섹션
-open_cities(cities)
-if(is_training == 0):
-    open_soution(sol[0])
-    print('final cost : ' + str(calculate_total_distance(sol, cities))) 
-else :
-    visited_list = [-1] * num_of_cluster
-    print(tree_search(visited_list, cities, 0))
-# =============================================================================
-#     init_random_candidates(population)
-#     for i in range(num_of_training) :
-#         calculate_fitness(fitness, population, cities, total_min_fit, cur_min_fit)
-#         nomalize_fitness(fitness)
-#         print(calculate_total_distance(population[cur_min_idx], cities))
-#         population = propagate_to_next_generation(population, fitness, cities).copy()
-#     print(total_min_fit)
-# =============================================================================
-    
