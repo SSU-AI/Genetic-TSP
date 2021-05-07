@@ -6,6 +6,7 @@ from Selections import Selection
 from Mutations import Mutation
 from KCluster import KClustering as cluster
 
+
 k=10
 output_chormosome = []
 
