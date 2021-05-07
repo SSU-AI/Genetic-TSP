@@ -15,6 +15,8 @@ def select_including_elite(candidates):
 
     imp.open_cities()
 
+    print(imp.cities)
+
     for candidate in candidates:
         fitness.append(60000 - imp.calculate_distance(candidate, imp.cities))
 
@@ -32,3 +34,5 @@ def select_including_elite(candidates):
     p2 = candidates[p2_ind]
 
     return [elite, p2]
+
+select_including_elite([])
