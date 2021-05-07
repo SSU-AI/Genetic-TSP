@@ -24,8 +24,8 @@ class Env :
     def __init__(self, chromosome):
         if chromosome :
             self.cities = chromosome
-            num_of_cities = len(chromosome)
-            num_of_population = int(num_of_cities/2)
+            self.num_of_cities = len(chromosome)
+            self.num_of_population = int(self.num_of_cities/2)
         else :
             with open('TSP.csv', mode='r', newline='') as tsp:
                 reader = csv.reader(tsp)

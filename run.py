@@ -8,20 +8,19 @@ from KCluster import KClustering as cluster
 
 
 k=10
-output_chormosome = []
+output_chromosome = []
 
 kcluster = cluster()
-all_cluster, centroids = kcluster.kclustering(k)
+init_env = Env(None)
+all_cluster, centroids = kcluster.kclustering(k, init_env)
 
 for i in range(0, k):
     # i번째 cluster
-    chromosome = all_cluster[i]
     my_env = Env(all_cluster[i])
     my_env.init_candidates()
     cal.calculate_fitness(my_env)
     cal.normalize_fitness(my_env)
     my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order,  Mutation.swap, my_env)
-    print(my_env.fitness)
 
     cal.calculate_fitness(my_env)   # 마지막 연산 후, population 갱신
     output_chromosome.append(my_env.population[my_env.cur_min_idx])
@@ -55,3 +54,5 @@ ex) tree 순서 0, 1, 2, 3, 4, 5, 6, 7, 8 ,9 이면
 # 1D vector [chromosome]
 chromosome = all_cluster[i]
 """
+print(output_chromosome[0])
+print(output_chromosome[1])

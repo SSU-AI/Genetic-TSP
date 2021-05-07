@@ -7,7 +7,7 @@ import pandas as pd
 class KClustering:
 
     @staticmethod
-    def kclustering(k):
+    def kclustering(k, env):
         df = pd.read_csv('TSP.csv', header=None, names=['x', 'y'])
 
         models = KMeans(n_clusters = k)
@@ -26,6 +26,10 @@ class KClustering:
         centroids_of_cluster = centroids
         for i in range(0, k):
             tmp = [cities for cities in df[df['cluster'] == i].index]
-            cities_of_cluster.append(tmp)
+            tmp_list = []
+            for k in range(0, len(tmp)) :
+                tmp_list.append(env.cities[k])
+            cities_of_cluster.append(tmp_list)
+
 
         return cities_of_cluster, centroids_of_cluster
