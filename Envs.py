@@ -34,7 +34,7 @@ class Env :
             self.sol= front + back
             self.sol.append(int(0))
 
-    def init_random_candidates(self, population) : 
+    def init_random_candidates(self) : 
         order = []
         for i in range (self.num_of_cities) :
             order.insert(i, i)
@@ -42,7 +42,7 @@ class Env :
             tmp_order = []
             tmp_order = order.copy()
             random.shuffle(tmp_order)
-            population.insert(i, tmp_order)
+            (self.population).insert(i, tmp_order)
 
     def propagate_to_next_generation(self, selection_method, cross_over_method, mutation_method) :
         new_population = []

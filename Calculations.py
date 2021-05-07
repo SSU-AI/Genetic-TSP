@@ -26,10 +26,9 @@ class Calculation :
         if(cur_min_fit < my_env.total_min_fit) :
             my_env.total_min_fit = cur_min_fit
             my_env.cur_min_idx = idx
-        print(my_env.total_min_fit)
 
     @staticmethod
-    def nomalize_fitness(my_env) :
+    def normalize_fitness(my_env) :
         fit_sum = 0
         for idx in range (my_env.num_of_population) :
             fit_sum  += my_env.fitness[idx]
