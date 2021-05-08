@@ -11,12 +11,12 @@ k=10
 output_chromosome = []
 
 kcluster = cluster()
-init_env = Env(None)
-all_cluster, centroids = kcluster.kclustering(k, init_env)
+init_env = Env(None, None)
+all_cluster, centroids, idxs_list = kcluster.kclustering(k, init_env)
 
 for i in range(0, k):
     # i번째 cluster
-    my_env = Env(all_cluster[i])
+    my_env = Env(all_cluster[i], idxs_list[i])
     my_env.init_candidates()
     cal.calculate_fitness(my_env)
     cal.normalize_fitness(my_env)

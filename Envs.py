@@ -22,12 +22,14 @@ class Env :
     population = []
     elite = []      # 다음 세대로 전달할 엘리트 유전자 리스트
     elite_fitness = 0       # 다음 세대로 전달할 엘리트 유전자의 적합도
+    original_idx = []
 
-    def __init__(self, chromosome):
+    def __init__(self, chromosome, idxs):
         if chromosome :
             self.cities = chromosome
             self.num_of_cities = len(chromosome)
             self.num_of_population = int(self.num_of_cities/2)
+            self.original_idx = idxs
         else :
             with open('TSP.csv', mode='r', newline='') as tsp:
                 reader = csv.reader(tsp)
