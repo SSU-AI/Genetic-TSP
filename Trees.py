@@ -7,7 +7,7 @@ from Calculations import Calculation
 
 class Tree :
     @staticmethod
-    def tree_search(visited_list, centroid,now_depth, num_of_cluster):
+    def tree_search(visited_list, centroid, now_depth, num_of_cluster):
         if(now_depth == num_of_cluster - 1) :
             return Calculation.calculate_total_distance(visited_list, centroid), visited_list
         tmp_min = 100000000
