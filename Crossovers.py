@@ -28,9 +28,10 @@ class Crossover:
     def pmx(parent1, parent2):
         point1 = random.randint(int(len(parent1)/10), int(len(parent1 * 9)/10) - 2)
         point2 = random.randint(point1 + 1, int(len(parent1 * 9)/10))
-        np1 = np.array(parent1)
-        np2 = np.array(parent2)
+        np1 = np.array(parent1, np.int32)
+        np2 = np.array(parent2, np.int32)
         child = np.concatenate((parent2[:point1], parent1[point1:point2], parent2[point2:]), axis=0)
+        child = child.astype(np.int32)
         
         no_duplicate = False
         while no_duplicate == False:
