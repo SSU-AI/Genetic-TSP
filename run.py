@@ -5,7 +5,7 @@ from Crossovers import Crossover
 from Selections import Selection
 from Mutations import Mutation
 from KCluster import KClustering as cluster
-
+import csv
 
 k=10
 output_chromosome = []
@@ -56,3 +56,17 @@ chromosome = all_cluster[i]
 """
 print(output_chromosome[0])
 print(output_chromosome[1])
+
+for i in reversed(range(0, 10)):
+    my_env.sol += output_chromosome[i]
+
+
+city = []
+with open('TSP.csv', mode='r', newline='') as tsp:
+    reader = csv.reader(tsp)
+    for row in reader:
+        city.append(row)
+
+total_cost = cal.calculate_total_distance(my_env.sol, city)
+
+print('final cost: ' + str(total_cost))
