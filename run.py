@@ -8,7 +8,8 @@ from KCluster import KClustering as cluster
 from Trees import Tree
 import pandas as pd
 
-output_chromosome = []
+#output_chromosome = []
+
 kcluster = cluster()
 
 # 전체 city를 저장하는 객체, 초기화 및 결과 도출 시 사용된다.
@@ -19,8 +20,68 @@ init_env = Env(None, None)
 k=10
 all_cluster, centroids, idxs_list = kcluster.kclustering(k, init_env, df)
 
+"""
 # output은 list들을 저장하는 배열 / 각 list는 하나의 클러스터의 순열을 의미한다. (cluster 안의 도시에 대해서 최적의 경로를 저장한다.)
 output = []
+"""
+
+final_order = []
+cluster_order = []
+child_cluster_order = []
+child_cluster = []
+child_centroids = []
+child_idxs_list = []
+
+# cluster를 한 번 더 나눈다.
+for i in range(0, k):
+    child_k=10
+    input_df = pd.DataFrame(all_cluster[i])
+    child_cluster, child_centroids, child_idxs_list = kcluster.kclustering(child_k, init_env, input_df)
+
+    # cluster_cluster 안의 list들을 저장하는 배열 / 각 list는 cluster_cluster 안의 하나의 클러스터의 순열을 의미한다. (cluster of cluster 안의 도시에 대해서 최적의 경로를 저장한다.)
+    child_cluster_cluster_output = []
+    for j in range(0, child_k):
+        my_env = Env(child_cluster[j], child_idxs_list[j])
+        my_env.init_candidates()
+
+        for training_counter in range(init_env.num_of_training):
+            cal.calculate_fitness(my_env)
+            cal.normalize_fitness(my_env)
+            my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order, Mutation.swap, my_env)
+
+        tmp_list = []
+        for i in (my_env.population[my_env.cur_max_idx]):
+            tmp_list.append(my_env.original_idx[i])
+        child_cluster_cluster_output.append(tmp_list) # (j, 클러스터의 클러스터의 순열)
+
+    tree_list = [0] * len(child_centroids)
+    tree_min, tree_order = Tree.tree_search(tree_list, child_centroids, 0, len(tree_list))
+
+    child_cluster_cluster_order = []
+    for j in tree_order:
+        child_cluster_cluster_order.append(child_cluster_cluster_output[j]) # (ordered j, 클러스터의 클러스터의 순열)
+    
+    child_cluster_order.append(child_cluster_cluster_order) # (k, ordered j, 클러스터의 클러스터의 순열)
+
+tree_list = [0] * k
+tree_min, tree_order = Tree.tree_search(tree_list, centroids, 0, len(tree_list))
+
+for i in tree_order:
+    cluster_order.append(child_cluster_order[i]) # (ordered k, ordered j, 클러스터의 클러스터의 순열)
+
+print(len(cluster_order))
+print(len(cluster_order[0]))
+print(len(cluster_order[0][0]))
+
+final_order = [i for j in cluster_order for k in j for i in k]
+
+print(final_order)
+
+print(final_order)
+print('final cost : ' + str(cal.calculate_total_distance(final_order, init_env.cities))) 
+
+
+"""
 
 # 각 cluster에 대해서 유전 알고리즘을 적용시켜 학습한다.
 for i in range(0, k):
@@ -90,7 +151,7 @@ print(final_order)
 print('final cost : ' + str(cal.calculate_total_distance(final_order, init_env.cities))) 
 
 
-
+"""
 
 
 
