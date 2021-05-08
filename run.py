@@ -9,7 +9,6 @@ from Trees import Tree
 import pandas as pd
 
 output_chromosome = []
-
 kcluster = cluster()
 
 # 전체 city를 저장하는 객체, 초기화 및 결과 도출 시 사용된다.
