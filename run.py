@@ -7,6 +7,7 @@ from Mutations import Mutation
 from KCluster import KClustering as cluster
 from Trees import Tree
 import pandas as pd
+
 output_chromosome = []
 
 kcluster = cluster()
@@ -23,7 +24,7 @@ for i in range(0, k):
     my_env.init_candidates()
     cal.calculate_fitness(my_env)
     cal.normalize_fitness(my_env)
-    my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order,  Mutation.swap, my_env)
+    my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.pmx,  Mutation.swap, my_env)
 
     tmp_list = []
     for i in (my_env.population[my_env.cur_min_idx]) :
@@ -75,5 +76,20 @@ ex) tree 순서 0, 1, 2, 3, 4, 5, 6, 7, 8 ,9 이면
 # 1D vector [chromosome]
 chromosome = all_cluster[i]
 """
-# print(output_chromosome[0])
-# print(output_chromosome[1])
+
+print(output_chromosome[0])
+print(output_chromosome[1])
+
+for i in reversed(range(0, 10)):
+    my_env.sol += output_chromosome[i]
+
+
+city = []
+with open('TSP.csv', mode='r', newline='') as tsp:
+    reader = csv.reader(tsp)
+    for row in reader:
+        city.append(row)
+
+total_cost = cal.calculate_total_distance(my_env.sol, city)
+
+print('final cost: ' + str(total_cost))

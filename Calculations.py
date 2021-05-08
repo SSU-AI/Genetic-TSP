@@ -17,15 +17,21 @@ class Calculation :
 
     @staticmethod
     def calculate_fitness(my_env) :
-        cur_min_fit = my_env.INF
+        cur_max_fit = 0
+        max_idx = 0
         for idx in range (my_env.num_of_population):
             fit_val = 1 / (Calculation.calculate_total_distance(my_env.population[idx], my_env.cities) + 1)
             my_env.fitness.insert(idx, fit_val)
-            if(my_env.fitness[idx] > my_env.cur_min_fit) :
-                my_env.cur_min_fit = my_env.fitness[idx]
-        if(cur_min_fit < my_env.total_min_fit) :
-            my_env.total_min_fit = cur_min_fit
-            my_env.cur_min_idx = idx
+
+            if (fit_val > my_env.cur_max_fit):
+                my_env.cur_max_fit = fit_val
+            if fit_val > cur_max_fit:
+                cur_max_fit = fit_val
+                max_idx = idx
+                
+        if(cur_max_fit > my_env.total_max_fit) :
+            my_env.total_max_fit = cur_max_fit
+            my_env.cur_max_idx = max_idx
 
     @staticmethod
     def normalize_fitness(my_env) :
