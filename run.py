@@ -20,10 +20,10 @@ for i in range(0, k):
     my_env.init_candidates()
     cal.calculate_fitness(my_env)
     cal.normalize_fitness(my_env)
-    my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order,  Mutation.swap, my_env)
+    my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.pmx,  Mutation.swap, my_env)
 
     cal.calculate_fitness(my_env)   # 마지막 연산 후, population 갱신
-    output_chromosome.append(my_env.population[my_env.cur_min_idx])
+    output_chromosome.append(my_env.population[my_env.cur_max_idx])
 
 # if(is_training == 0):
 #     open_soution(sol[0])

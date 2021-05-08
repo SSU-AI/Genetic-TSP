@@ -4,9 +4,9 @@ import random
 class Env :
     is_training = 1
     INF = 10000000000
-    total_min_fit = INF
-    cur_min_fit = INF
-    cur_min_idx = -1
+    total_max_fit = 0
+    cur_max_fit = 0
+    cur_max_idx = -1
     num_of_cities = 1000 # according to cluster's members
     num_of_population = 500
     num_of_training = 100
