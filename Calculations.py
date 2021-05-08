@@ -21,7 +21,7 @@ class Calculation :
         for idx in range (my_env.num_of_population):
             fit_val = 1 / (Calculation.calculate_total_distance(my_env.population[idx], my_env.cities) + 1)
             my_env.fitness.insert(idx, fit_val)
-            if(my_env.fitness[idx] < my_env.cur_min_fit) :
+            if(my_env.fitness[idx] > my_env.cur_min_fit) :
                 my_env.cur_min_fit = my_env.fitness[idx]
         if(cur_min_fit < my_env.total_min_fit) :
             my_env.total_min_fit = cur_min_fit

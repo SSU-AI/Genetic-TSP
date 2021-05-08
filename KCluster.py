@@ -7,9 +7,7 @@ import pandas as pd
 class KClustering:
 
     @staticmethod
-    def kclustering(k, env):
-        df = pd.read_csv('TSP.csv', header=None, names=['x', 'y'])
-
+    def kclustering(k, env, df):
         models = KMeans(n_clusters = k)
         models.fit(df)
 

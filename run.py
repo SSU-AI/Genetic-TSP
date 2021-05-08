@@ -6,13 +6,16 @@ from Selections import Selection
 from Mutations import Mutation
 from KCluster import KClustering as cluster
 from Trees import Tree
-
-k=10
+import pandas as pd
 output_chromosome = []
 
 kcluster = cluster()
 init_env = Env(None, None)
-all_cluster, centroids, idxs_list = kcluster.kclustering(k, init_env)
+
+df = pd.read_csv('TSP.csv', header=None, names=['x', 'y'])
+k=10
+all_cluster, centroids, idxs_list = kcluster.kclustering(k, init_env, df)
+
 output = []
 for i in range(0, k):
     # i번째 cluster
@@ -22,13 +25,11 @@ for i in range(0, k):
     cal.normalize_fitness(my_env)
     my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order,  Mutation.swap, my_env)
 
-    cal.calculate_fitness(my_env)   # 마지막 연산 후, population 갱신
-
     tmp_list = []
     for i in (my_env.population[my_env.cur_min_idx]) :
         tmp_list.append(my_env.original_idx[i])
     output.append(tmp_list)
-print(output)
+
 
 tree_list = [0] * (k)
 tree_min, tree_order =  Tree.tree_search(tree_list, centroids, 0, k)
@@ -36,9 +37,13 @@ tree_min, tree_order =  Tree.tree_search(tree_list, centroids, 0, k)
 final_order = []
 for i in tree_list :
     final_order += output[i]
+print(final_order)
 print('final cost : ' + str(cal.calculate_total_distance(final_order, init_env.cities))) 
 
-# print(tree_min, tree_order)
+
+
+
+
 
 
 # if(is_training == 0):
