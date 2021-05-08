@@ -5,7 +5,7 @@ from Crossovers import Crossover
 from Selections import Selection
 from Mutations import Mutation
 from KCluster import KClustering as cluster
-
+from Trees import Tree
 
 k=10
 output_chromosome = []
@@ -24,6 +24,11 @@ for i in range(0, k):
 
     cal.calculate_fitness(my_env)   # 마지막 연산 후, population 갱신
     output_chromosome.append(my_env.population[my_env.cur_min_idx])
+
+tree_list = [0] * (k)
+tree_min, tree_order =  Tree.tree_search(tree_list, centroids, 0, k)
+print(tree_min, tree_order)
+
 
 # if(is_training == 0):
 #     open_soution(sol[0])
@@ -54,5 +59,5 @@ ex) tree 순서 0, 1, 2, 3, 4, 5, 6, 7, 8 ,9 이면
 # 1D vector [chromosome]
 chromosome = all_cluster[i]
 """
-print(output_chromosome[0])
-print(output_chromosome[1])
+# print(output_chromosome[0])
+# print(output_chromosome[1])

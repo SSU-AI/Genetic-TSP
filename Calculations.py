@@ -7,7 +7,7 @@ class Calculation :
 
     @staticmethod
     def calculate_total_distance(sol, cities) : 
-        total_cost = 0;    
+        total_cost = 0
         for idx in range(len(sol)-1) :
             pos_city_1 = [float(cities[sol[idx]][0]), float(cities[sol[idx]][1])]
             pos_city_2 = [float(cities[sol[idx+1]][0]), float(cities[sol[idx+1]][1])]         
