@@ -13,7 +13,7 @@ output_chromosome = []
 kcluster = cluster()
 init_env = Env(None, None)
 all_cluster, centroids, idxs_list = kcluster.kclustering(k, init_env)
-
+output = []
 for i in range(0, k):
     # i번째 cluster
     my_env = Env(all_cluster[i], idxs_list[i])
@@ -23,11 +23,22 @@ for i in range(0, k):
     my_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.crossover_order,  Mutation.swap, my_env)
 
     cal.calculate_fitness(my_env)   # 마지막 연산 후, population 갱신
-    output_chromosome.append(my_env.population[my_env.cur_min_idx])
+
+    tmp_list = []
+    for i in (my_env.population[my_env.cur_min_idx]) :
+        tmp_list.append(my_env.original_idx[i])
+    output.append(tmp_list)
+print(output)
 
 tree_list = [0] * (k)
 tree_min, tree_order =  Tree.tree_search(tree_list, centroids, 0, k)
-print(tree_min, tree_order)
+
+final_order = []
+for i in tree_list :
+    final_order += output[i]
+print('final cost : ' + str(cal.calculate_total_distance(final_order, init_env.cities))) 
+
+# print(tree_min, tree_order)
 
 
 # if(is_training == 0):
