@@ -16,7 +16,7 @@ df = pd.read_csv('TSP.csv', header=None, names=['x', 'y'])
 init_env = Env(None, None)
 
 # cluster의 갯수를 지정하는 변수
-k=100
+k=10
 all_cluster, centroids, idxs_list = kcluster.kclustering(k, init_env, df)
 
 # output은 list들을 저장하는 배열 / 각 list는 하나의 클러스터의 순열을 의미한다. (cluster 안의 도시에 대해서 최적의 경로를 저장한다.)
