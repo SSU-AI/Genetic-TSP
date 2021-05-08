@@ -1,3 +1,14 @@
 *.ipynb
 ./__pycache__/*
 ./.ipynb_checkpoints/*
+*.pyc
+*.pyc
+*.pyc
+*.pyc
+*.pyc
+__pycache__/Crossovers.cpython-38.pyc
+__pycache__/Envs.cpython-38.pyc
+__pycache__/KCluster.cpython-38.pyc
+__pycache__/Mutations.cpython-38.pyc
+__pycache__/Selections.cpython-38.pyc
+__pycache__/Calculations.cpython-38.pyc
