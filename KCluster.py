@@ -27,7 +27,7 @@ class KClustering:
             tmp = [cities for cities in df[df['cluster'] == i].index]
             idxs_list.append(tmp)
             tmp_list = []
-            for k in range(0, len(tmp)) :
+            for k in tmp :
                 tmp_list.append(env.cities[k])
             cities_of_cluster.append(tmp_list)
 
