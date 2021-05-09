@@ -12,8 +12,8 @@ class Env :
     num_of_cluster = 10
     mutation_rate = 0.01
     ranking_n = 14
-    tournament_t = 0.6  # 0.7
-    tournament_n = 3
+    tournament_t = 0.6  # 0.7       #PARAMETER
+    tournament_n = 3                #PARAMETER
     cities = []
     sol = []
     original_idx = []
@@ -26,7 +26,7 @@ class Env :
             self.original_idx = idxs
             self.elite = []         # 다음 세대로 전달할 엘리트 유전자 리스트
             self.elite_fitness = 0  # 다음 세대로 전달할 엘리트 유전자의 적합도
-            self.population = []
+            self.population = []    # PARAMETER
             self.fitness = []
         else :
             with open('TSP.csv', mode='r', newline='') as tsp:
