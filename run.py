@@ -21,6 +21,7 @@ init_env = Env(None, None)
 
 k=10
 all_cluster, centroids, idxs_list = kcluster.kclustering(k, init_env, df)
+gen_count=10
 
 
 final_order = []
@@ -36,7 +37,7 @@ tree_min, total_tree_order = Tree.tree_search(tree_list, centroids, 0, len(tree_
 
 
 # 하나의 cluster를 child_k개의 cluster로 또 나눈다.
-child_k = 8
+child_k = 7
 output = []
 for i in range(0, k):
     # 각 cluster에 대한 환경을  만들어 준다.
@@ -54,8 +55,19 @@ for i in range(0, k):
         child_env.init_candidates()
 
         # small cluster를 학습시킨다
-        for training_counter in range(init_env.num_of_training):
+        count = gen_count-1
+        fits = []
+        for training_counter in range(100):
             cal.calculate_fitness(child_env)
+            fits.append(child_env.total_max_fit)
+            if count==0:
+                fits = []
+                break
+            if len(fits)>1:
+                if fits[-1]==fits[-2]:
+                    count -= 1
+                else:
+                    count=gen_count
             cal.normalize_fitness(child_env)
             child_env.propagate_to_next_generation(Selection.elite_include, Crossover.pmx, Mutation.inversion, child_env)
             

@@ -8,13 +8,12 @@ class Env :
     cur_max_fit = 0
     cur_max_idx = -1
     num_of_cities = 1000 # according to cluster's members
-    num_of_population = 500
-    num_of_training = 30
+    # num_of_population = 500
     num_of_cluster = 10
     mutation_rate = 0.01
     ranking_n = 14
-    tournament_t = 0.7 
-    tournament_n = 6
+    tournament_t = 0.6  # 0.7
+    tournament_n = 3
     cities = []
     sol = []
     original_idx = []
@@ -23,7 +22,7 @@ class Env :
         if chromosome :
             self.cities = chromosome
             self.num_of_cities = len(chromosome)
-            self.num_of_population = int(self.num_of_cities) * 10
+            self.num_of_population = 10
             self.original_idx = idxs
             self.elite = []         # 다음 세대로 전달할 엘리트 유전자 리스트
             self.elite_fitness = 0  # 다음 세대로 전달할 엘리트 유전자의 적합도
