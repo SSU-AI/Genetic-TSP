@@ -61,10 +61,15 @@ class Selection:
     @staticmethod
     def elite_include(env):
 
+        # print(env.elite_fitness, len(env.elite))
         # 이전 세대로부터 전달받을 값이 있을 때
         if env.elite_fitness!=0:
-            env.population.append(env.elite)
-            env.fitness.append(env.elite_fitness)
+            ## 하나 더 추가하지 말고, 랜덤으로 한개의 population에 넣기
+            random_ind = np.random.randint(len(env.population))
+            env.population[random_ind]=env.elite
+            env.fitness[random_ind] = env.elite_fitness
+
+        print(env.elite)
 
         ## elite, elite_fitness 구하기
         # 최대 적합도의 값
@@ -75,7 +80,7 @@ class Selection:
         env.elite = env.population[elite_ind]
 
         # population 중에서 random으로 1개 리턴
-        return np.random.choice(env.population, 1)
+        return env.population[np.random.randint(len(env.population))]
 
     @staticmethod
     def roulette_wheel(env):
