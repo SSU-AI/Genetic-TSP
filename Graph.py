@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 '''
-한 fig에 최대 7가지 선 그래프
+한 fig에 최대 12가지 선 그래프
 x_list :    한 그래프에 대한 x축 값들을 가지고 있는 2차원 리스트
             x_list[i] : i번째 그래프
             x_list[0][i] : 0번째 그래프의 i번째 x값
@@ -13,9 +13,6 @@ legends :   각 그래프가 어떤 그래프인지 명시하는 String 리스�
 '''
 def draw_graph(x_list, y_list, xlabel, ylabel, legends=[]):
     colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'darkgoldenrod', 'olive', 'steelblue', 'maroon', 'purple']
-    print(x_list[0])
-    print(y_list[0])
-    print(colors[0])
     for i in range(len(x_list)):
         print('i : ', i)
         plt.plot(x_list[i], y_list[i], colors[i])
