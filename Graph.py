@@ -13,22 +13,20 @@ legends :   각 그래프가 어떤 그래프인지 명시하는 String 리스�
 '''
 def draw_graph(x_list, y_list, xlabel, ylabel, legends=[]):
     colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'darkgoldenrod', 'olive', 'steelblue', 'maroon', 'purple']
-    for i in range(len(x_list)):
-        print('i : ', i)
-        plt.plot(x_list[i], y_list[i], colors[i])
-    '''
+    
+    
     try:
         for i in range(len(x_list)):
             plt.plot(x_list[i], y_list[i], colors[i])
     except:
-        if (len(x_list) > 7):
+        if (len(x_list) > 12):
             print('Error : 한 figure에 7개 이상의 그래프를 그릴 수 없습니다!')
         else:
             print('그래프 그리기 오류!')
         print('그래프 그리기를 건너뜁니다...')
         plt.close()
         return
-    '''
+    
 
     x_min = 10000000
     x_max = 0
