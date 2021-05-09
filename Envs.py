@@ -9,7 +9,7 @@ class Env :
     cur_max_idx = -1
     num_of_cities = 1000 # according to cluster's members
     num_of_population = 500
-    num_of_training = 1
+    num_of_training = 30
     num_of_cluster = 10
     mutation_rate = 0.01
     ranking_n = 14
@@ -28,7 +28,7 @@ class Env :
         if chromosome :
             self.cities = chromosome
             self.num_of_cities = len(chromosome)
-            self.num_of_population = int(self.num_of_cities)
+            self.num_of_population = int(self.num_of_cities) * 10
             self.original_idx = idxs
         else :
             with open('TSP.csv', mode='r', newline='') as tsp:
