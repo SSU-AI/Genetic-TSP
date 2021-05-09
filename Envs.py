@@ -15,13 +15,8 @@ class Env :
     ranking_n = 14
     tournament_t = 0.7 
     tournament_n = 6
-    elite = []
     cities = []
     sol = []
-    fitness = []
-    population = []
-    elite = []      # 다음 세대로 전달할 엘리트 유전자 리스트
-    elite_fitness = 0       # 다음 세대로 전달할 엘리트 유전자의 적합도
     original_idx = []
 
     def __init__(self, chromosome, idxs):
@@ -30,6 +25,10 @@ class Env :
             self.num_of_cities = len(chromosome)
             self.num_of_population = int(self.num_of_cities) * 10
             self.original_idx = idxs
+            self.elite = []         # 다음 세대로 전달할 엘리트 유전자 리스트
+            self.elite_fitness = 0  # 다음 세대로 전달할 엘리트 유전자의 적합도
+            self.population = []
+            self.fitness = []
         else :
             with open('TSP.csv', mode='r', newline='') as tsp:
                 reader = csv.reader(tsp)
@@ -49,6 +48,8 @@ class Env :
 
     def init_candidates(self) : 
             order = []
+            self.elite = []
+            self.elite_fitness = 0
             for i in range (self.num_of_cities) :
                 order.insert(i, i)
             for i in range (self.num_of_population) :

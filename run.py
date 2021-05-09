@@ -52,12 +52,12 @@ for i in range(0, k):
         # small cluster에 대해 환경을 만들어 준다.
         child_env = Env(child_cluster_points[now_child], tmp_child_idxs[now_child])
         child_env.init_candidates()
-        
+
         # small cluster를 학습시킨다
         for training_counter in range(init_env.num_of_training):
             cal.calculate_fitness(child_env)
             cal.normalize_fitness(child_env)
-            child_env.propagate_to_next_generation(Selection.roulette_wheel, Crossover.pmx, Mutation.inversion, child_env)
+            child_env.propagate_to_next_generation(Selection.elite_include, Crossover.pmx, Mutation.inversion, child_env)
             
         # 학습 시킨 small cluster의 결과를 cluster_order에 저장한다
         tmp_lists = []
