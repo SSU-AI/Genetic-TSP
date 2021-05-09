@@ -69,8 +69,6 @@ class Selection:
             env.population[random_ind]=env.elite
             env.fitness[random_ind] = env.elite_fitness
 
-        print(env.elite)
-
         ## elite, elite_fitness 구하기
         # 최대 적합도의 값
         env.elite_fitness = max(env.fitness)
