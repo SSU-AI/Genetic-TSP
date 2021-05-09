@@ -29,22 +29,16 @@ class Selection:
 
     @staticmethod
     def ranking(env):
-        N=env.ranking_n
+        N=5
         highest_chrom_idx = Selection.get_highest_chroms(N, env)
-        
+        prob_list = [0.3, 0.25, 0.2, 0.15, 0.1]
         p = random.random()
         sum = 0
         for i in range(N):
-            sub = N-i
-            if i < 5:
-                sub -= 1
-
-            sum += sub/100
-
+            sum += prob_list[i]
             if sum >= p:
                 idx = i
                 break
-                
         return env.population[highest_chrom_idx[idx]]
 
     @staticmethod
